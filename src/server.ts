@@ -1,15 +1,13 @@
 import express, { NextFunction, Request, Response } from 'express';
 import 'express-async-errors';
+import routes from './routes';
 import AppError from './errors/AppError';
 import './database';
 
 const app = express();
 
 app.use(express.json());
-
-app.get('/', (req, res) => {
-  res.json({ message: 'Ok' });
-});
+app.use(routes);
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   if (err instanceof AppError) {
