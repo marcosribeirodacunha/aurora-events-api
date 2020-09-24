@@ -1,7 +1,10 @@
 import { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
+import path from 'path';
+import fs from 'fs';
 import AppError from '../../errors/AppError';
 import Events from '../models/Events';
+import uploadConfig from '../../config/upload';
 
 class EventController {
   public async index(req: Request, res: Response): Promise<Response> {
@@ -22,12 +25,13 @@ class EventController {
   }
 
   public async store(req: Request, res: Response): Promise<Response> {
-    const { organizer_id, title, description, location } = req.body;
+    const { id } = req.user;
+    const { title, description, location } = req.body;
     const photo = req.file.filename;
 
     const eventRepository = getRepository(Events);
     const event = eventRepository.create({
-      organizer_id,
+      organizer_id: id,
       title,
       description,
       location,
@@ -40,10 +44,20 @@ class EventController {
 
   public async delete(req: Request, res: Response): Promise<Response> {
     const { id } = req.params;
+    const organizer_id = req.user.id;
 
     const eventRepository = getRepository(Events);
+    const event = await eventRepository.findOne(id, {
+      where: { organizer_id },
+    });
+
+    if (!event) throw new AppError('Event not found', 404);
+
     await eventRepository.delete(id);
-    res.status(204).send();
+    const photoFilePath = path.join(uploadConfig.directory, event.photo);
+    await fs.promises.unlink(photoFilePath);
+
+    return res.status(204).send();
   }
 }
 
