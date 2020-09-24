@@ -1,6 +1,7 @@
 import express, { NextFunction, Request, Response } from 'express';
 import 'express-async-errors';
 import AppError from './errors/AppError';
+import './database';
 
 const app = express();
 
