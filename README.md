@@ -20,14 +20,13 @@ $ npm install
 
 Esta aplicação utiliza como banco de dados o [Postgres](https://www.postgresql.org/) em um container do [Docker](https://www.docker.com/). Entretanto é possivel utilizar o banco instalado localmente.
 
-### Migrations
-
 Antes de realizar as migrations realize os seguintes passos:
 
 - Crie um banco de dados com o nome `aurora_events`;
 - Verifique se o `username` e `password` utilizados em seu banco banco de dados condizem com aqueles contidos no arquivo `ormconfig.json`. Caso estejam diferentes, no aquivo `ormconfig.json`:
   - Troque o campo `username` para o mesmo utilizado em seu BD;
   - Troque o campo `password` para o mesmo utilizado em seu BD;
+- Verifique se o banco de dados criado possui a extensão `uuid-ossp` habilitada. Caso não possua, habilite esta extensão.
 
 Após verificar os passos anteriores execute os seguintes comandos:
 
@@ -52,6 +51,7 @@ $ npm run dev
 - [Express](https://expressjs.com/pt-br/)
 - [TypeORM](https://typeorm.io/#/)
 - [Postgres](https://www.postgresql.org/)
+- [JSON Web Token](https://jwt.io/)
 - [Eslint](https://eslint.org/)
 - [Prettier](https://prettier.io/)
 - [EditorConfig](https://editorconfig.org/)

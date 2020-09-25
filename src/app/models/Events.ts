@@ -4,9 +4,11 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import Likes from './LikesEvent';
 import Users from './Users';
 
 @Entity('events')
@@ -38,6 +40,9 @@ class Events {
 
   @UpdateDateColumn()
   updated_at: Date;
+
+  @OneToMany(() => Likes, likes => likes.event, { eager: true })
+  likes: Likes[];
 }
 
 export default Events;

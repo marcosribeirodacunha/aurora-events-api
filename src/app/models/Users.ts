@@ -2,9 +2,11 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import Likes from './LikesEvent';
 
 @Entity('users')
 class Users {
@@ -28,6 +30,9 @@ class Users {
 
   @UpdateDateColumn()
   updated_at: Date;
+
+  @OneToMany(() => Likes, likes => likes.user)
+  likes: Likes[];
 }
 
 export default Users;
