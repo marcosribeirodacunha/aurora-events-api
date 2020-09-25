@@ -1,8 +1,11 @@
 import { hash } from 'bcryptjs';
 import { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
+import path from 'path';
+import fs from 'fs';
 import AppError from '../../errors/AppError';
 import User from '../models/User';
+import uploadConfig from '../../config/upload';
 
 class UserController {
   public async index(req: Request, res: Response): Promise<Response> {
@@ -50,7 +53,17 @@ class UserController {
     const { id } = req.params;
 
     const userRepository = getRepository(User);
+    const user = await userRepository.findOne(id);
+
+    if (!user) throw new AppError('User not found', 404);
+
     await userRepository.delete(id);
+
+    if (user.avatar) {
+      const avatarFilePath = path.join(uploadConfig.directory, user.avatar);
+      await fs.promises.unlink(avatarFilePath);
+    }
+
     return res.status(204).send();
   }
 }
