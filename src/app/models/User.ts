@@ -6,10 +6,10 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import Likes from './LikesEvent';
+import LikeEvent from './LikeEvent';
 
 @Entity('users')
-class Users {
+class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -31,8 +31,8 @@ class Users {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @OneToMany(() => Likes, likes => likes.user)
-  likes: Likes[];
+  @OneToMany(() => LikeEvent, likeEvent => likeEvent.user)
+  likes: LikeEvent[];
 }
 
-export default Users;
+export default User;

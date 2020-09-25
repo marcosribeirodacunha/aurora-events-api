@@ -3,12 +3,12 @@ import { getRepository } from 'typeorm';
 import path from 'path';
 import fs from 'fs';
 import AppError from '../../errors/AppError';
-import Events from '../models/Events';
+import Event from '../models/Event';
 import uploadConfig from '../../config/upload';
 
 class EventController {
   public async index(req: Request, res: Response): Promise<Response> {
-    const eventRepository = getRepository(Events);
+    const eventRepository = getRepository(Event);
     const events = await eventRepository.find({
       order: { created_at: 'DESC', title: 'DESC' },
     });
@@ -18,7 +18,7 @@ class EventController {
   public async show(req: Request, res: Response): Promise<Response> {
     const { id } = req.params;
 
-    const eventRepository = getRepository(Events);
+    const eventRepository = getRepository(Event);
     const event = await eventRepository.findOne(id);
 
     if (!event) throw new AppError('Event not found', 404);
@@ -31,7 +31,7 @@ class EventController {
     const { title, description, location } = req.body;
     const photo = req.file.filename;
 
-    const eventRepository = getRepository(Events);
+    const eventRepository = getRepository(Event);
     const event = eventRepository.create({
       organizer_id: id,
       title,
@@ -48,7 +48,7 @@ class EventController {
     const { id } = req.params;
     const organizer_id = req.user.id;
 
-    const eventRepository = getRepository(Events);
+    const eventRepository = getRepository(Event);
     const event = await eventRepository.findOne(id, {
       where: { organizer_id },
     });

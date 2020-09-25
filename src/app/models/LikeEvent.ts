@@ -7,24 +7,24 @@ import {
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import Events from './Events';
-import Users from './Users';
+import Event from './Event';
+import User from './User';
 
 @Entity('user_event_like')
-class Likes {
+class LikeEvent {
   @PrimaryColumn()
   user_id: string;
 
-  @ManyToOne(() => Users, users => users.likes)
+  @ManyToOne(() => User, user => user.likes)
   @JoinColumn({ name: 'user_id' })
-  user: Users;
+  user: User;
 
   @PrimaryColumn()
   event_id: string;
 
-  @ManyToOne(() => Events, events => events.likes)
+  @ManyToOne(() => Event, event => event.likes)
   @JoinColumn({ name: 'event_id' })
-  event: Events;
+  event: Event;
 
   @Column('boolean')
   is_like: boolean;
@@ -36,4 +36,4 @@ class Likes {
   updated_at: Date;
 }
 
-export default Likes;
+export default LikeEvent;

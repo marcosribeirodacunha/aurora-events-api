@@ -4,13 +4,13 @@ import { sign } from 'jsonwebtoken';
 import { getRepository } from 'typeorm';
 import authConfig from '../../config/auth';
 import AppError from '../../errors/AppError';
-import Users from '../models/Users';
+import User from '../models/User';
 
 class SessionController {
   public async store(req: Request, res: Response): Promise<Response> {
     const { email, password } = req.body;
 
-    const userRepository = getRepository(Users);
+    const userRepository = getRepository(User);
     const user = await userRepository.findOne({ where: { email } });
 
     if (!user) throw new AppError('Invalid email/password', 401);

@@ -8,20 +8,20 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import Likes from './LikesEvent';
-import Users from './Users';
+import LikeEvent from './LikeEvent';
+import User from './User';
 
 @Entity('events')
-class Events {
+class Event {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column('uuid')
   organizer_id: string;
 
-  @ManyToOne(() => Users)
+  @ManyToOne(() => User)
   @JoinColumn({ name: 'organizer_id' })
-  organizer: Users;
+  organizer: User;
 
   @Column()
   title: string;
@@ -41,8 +41,8 @@ class Events {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @OneToMany(() => Likes, likes => likes.event, { eager: true })
-  likes: Likes[];
+  @OneToMany(() => LikeEvent, likeEvent => likeEvent.event, { eager: true })
+  likes: LikeEvent[];
 }
 
-export default Events;
+export default Event;

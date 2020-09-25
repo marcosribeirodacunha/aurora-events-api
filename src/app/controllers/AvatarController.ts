@@ -3,7 +3,7 @@ import { getRepository } from 'typeorm';
 import path from 'path';
 import fs from 'fs';
 import AppError from '../../errors/AppError';
-import Users from '../models/Users';
+import User from '../models/User';
 import uploadConfig from '../../config/upload';
 
 class AvatarController {
@@ -11,7 +11,7 @@ class AvatarController {
     const user_id = req.user.id;
     const avatarFilename = req.file.filename;
 
-    const userRepository = getRepository(Users);
+    const userRepository = getRepository(User);
     const user = await userRepository.findOne(user_id);
 
     if (!user)

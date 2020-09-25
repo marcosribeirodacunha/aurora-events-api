@@ -2,11 +2,11 @@ import { hash } from 'bcryptjs';
 import { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
 import AppError from '../../errors/AppError';
-import Users from '../models/Users';
+import User from '../models/User';
 
 class UserController {
   public async index(req: Request, res: Response): Promise<Response> {
-    const userRepository = getRepository(Users);
+    const userRepository = getRepository(User);
     const users = await userRepository.find();
     return res.status(200).json(users);
   }
@@ -14,7 +14,7 @@ class UserController {
   public async show(req: Request, res: Response): Promise<Response> {
     const { id } = req.params;
 
-    const userRepository = getRepository(Users);
+    const userRepository = getRepository(User);
     const user = await userRepository.findOne({ where: { id } });
 
     if (!user) throw new AppError('User not found', 404);
@@ -25,7 +25,7 @@ class UserController {
   public async store(req: Request, res: Response): Promise<Response> {
     const { name, email, password } = req.body;
 
-    const userRepository = getRepository(Users);
+    const userRepository = getRepository(User);
     const userAlreadyExists = await userRepository.findOne({
       where: { email },
     });
@@ -49,7 +49,7 @@ class UserController {
   public async delete(req: Request, res: Response): Promise<Response> {
     const { id } = req.params;
 
-    const userRepository = getRepository(Users);
+    const userRepository = getRepository(User);
     await userRepository.delete(id);
     return res.status(204).send();
   }

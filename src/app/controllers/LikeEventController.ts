@@ -1,15 +1,15 @@
 import { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
 import AppError from '../../errors/AppError';
-import Events from '../models/Events';
-import LikesEvent from '../models/LikesEvent';
+import Event from '../models/Event';
+import LikeEvent from '../models/LikeEvent';
 
 class LikeEventController {
   public async store(req: Request, res: Response): Promise<Response> {
     const { event_id, is_like } = req.body;
     const user_id = req.user.id;
 
-    const likesRepository = getRepository(LikesEvent);
+    const likesRepository = getRepository(LikeEvent);
     const likeEvent = await likesRepository.findOne({
       where: { event_id, user_id },
     });
@@ -21,7 +21,7 @@ class LikeEventController {
         400
       );
 
-    const eventRepository = getRepository(Events);
+    const eventRepository = getRepository(Event);
     const event = await eventRepository.findOne(event_id);
 
     if (!event) throw new AppError('Event not found', 404);
@@ -48,7 +48,7 @@ class LikeEventController {
     const event_id = req.params.id;
     const user_id = req.user.id;
 
-    const likesRepository = getRepository(LikesEvent);
+    const likesRepository = getRepository(LikeEvent);
     const likeEvent = await likesRepository.findOne({
       where: { event_id, user_id },
     });
@@ -72,7 +72,7 @@ class LikeEventController {
     const user_id = req.user.id;
     const event_id = req.params.id;
 
-    const likesRepository = getRepository(LikesEvent);
+    const likesRepository = getRepository(LikeEvent);
     const likeEvent = await likesRepository.findOne({
       where: { user_id, event_id },
     });
