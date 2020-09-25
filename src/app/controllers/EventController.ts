@@ -9,7 +9,9 @@ import uploadConfig from '../../config/upload';
 class EventController {
   public async index(req: Request, res: Response): Promise<Response> {
     const eventRepository = getRepository(Events);
-    const events = await eventRepository.find();
+    const events = await eventRepository.find({
+      order: { created_at: 'DESC', title: 'DESC' },
+    });
     return res.status(200).json(events);
   }
 
