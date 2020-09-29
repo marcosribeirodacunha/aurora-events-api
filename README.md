@@ -1,4 +1,32 @@
-# Aurora Events API
+<h1 align="center">
+  <br />
+  <img alt="Aurora Events" src="./github/logo.svg" width="200px" />
+</h1>
+
+<h1 align="center">Aurora Events API</h1>
+
+<h4 align="center">Aurora events é uma plataforma de divulgação de eventos onde é possivel publicar e descobrir novos eventos incríveis.</h4>
+
+<p align="center">
+  <img alt="Linguagem mais usada" src="https://img.shields.io/github/languages/top/marcosribeirodacunha/aurora-events-api?style=flat">
+  <img alt="Objetivo: estudo" src="https://img.shields.io/badge/purpose-study-lightgrey?style=flat">
+</p>
+
+<p align="center">
+  <a href="#recursos">Recursos</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#instalação">Instalação</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#insomnia">Insomnia</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#licença">Licença</a>
+</p>
+
+## Recursos
+
+- Cadastro, listagem e deleção de usuários
+- Atualização de avatar do usuário
+- Criação de sessão com JWT
+- Criação, listagem e deleção de eventos
+- Like e Dislike em eventos
 
 ## Instalação
 
@@ -6,7 +34,7 @@ Para clonar e executar esta aplicação é necessário possuir instalado [Git](h
 
 ```bash
 # Clone o repositório
-$ git clone https://github.com/marcosribeirodacunha/aurora-api.git
+$ git clone https://github.com/marcosribeirodacunha/aurora-events-api.git
 
 # Entre no repositório
 $ cd aurora-api
@@ -44,6 +72,12 @@ $ npm run dev
 // ou yarn dev
 ```
 
+## Insomnia
+
+Para testar a aplicação utilizando o [Insomnia](https://insomnia.rest/) clique no botão abaixo para criar um workspace com todas as rotas necessárias.
+
+[![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=Aurora_Events_API&uri=https%3A%2F%2Fraw.githubusercontent.com%2Fmarcosribeirodacunha%2Faurora-events-api%2Fmaster%2Fgithub%2Finsomnia_workspace.json)
+
 ## Tecnologias
 
 - [Typescript](https://www.typescriptlang.org/)
@@ -52,6 +86,10 @@ $ npm run dev
 - [TypeORM](https://typeorm.io/#/)
 - [Postgres](https://www.postgresql.org/)
 - [JSON Web Token](https://jwt.io/)
-- [Eslint](https://eslint.org/)
+- [ESlint](https://eslint.org/)
 - [Prettier](https://prettier.io/)
 - [EditorConfig](https://editorconfig.org/)
+
+## Licença
+
+Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
