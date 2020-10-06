@@ -24,6 +24,8 @@ class SessionController {
       expiresIn: authConfig.jwt.expiresIn,
     });
 
+    user.avatar = `${req.protocol}://${req.headers.host}/files/${user.avatar}`;
+
     delete user.password;
     return res.status(200).json({ user, token });
   }

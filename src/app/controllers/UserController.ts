@@ -11,7 +11,16 @@ class UserController {
   public async index(req: Request, res: Response): Promise<Response> {
     const userRepository = getRepository(User);
     const users = await userRepository.find();
-    return res.status(200).json(users);
+
+    const serializedUsers = users.map(user => {
+      delete user.password;
+      return {
+        ...user,
+        avatar: `${req.protocol}://${req.headers.host}/files/${user.avatar}`,
+      };
+    });
+
+    return res.status(200).json(serializedUsers);
   }
 
   public async show(req: Request, res: Response): Promise<Response> {
@@ -22,6 +31,8 @@ class UserController {
 
     if (!user) throw new AppError('User not found', 404);
 
+    delete user.password;
+    user.avatar = `${req.protocol}://${req.headers.host}/files/${user.avatar}`;
     return res.status(200).json(user);
   }
 
@@ -41,6 +52,7 @@ class UserController {
       name,
       email,
       password: hashedPassword,
+      avatar: 'default-avatar.png',
     });
 
     await userRepository.save(user);
