@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { getRepository } from 'typeorm';
+import { FindManyOptions, getRepository } from 'typeorm';
 import path from 'path';
 import fs from 'fs';
 import AppError from '../../errors/AppError';
@@ -8,22 +8,89 @@ import uploadConfig from '../../config/upload';
 
 class EventController {
   public async index(req: Request, res: Response): Promise<Response> {
-    const eventRepository = getRepository(Event);
-    const events = await eventRepository.find({
+    const { organizer } = req.query;
+
+    const options: FindManyOptions<Event> = {
       order: { created_at: 'DESC', title: 'DESC' },
-    });
-    return res.status(200).json(events);
+      relations: ['organizer', 'likes'],
+    };
+
+    if (organizer) options.where = { organizer_id: organizer };
+
+    const eventRepository = getRepository(Event);
+    const events = await eventRepository.find(options);
+
+    const serializedEvents = events.map(event => ({
+      id: event.id,
+      organizer_id: event.organizer_id,
+      organizer_name: event.organizer.name,
+      title: event.title,
+      description: event.description,
+      location: event.location,
+      photo: `${req.protocol}://${req.headers.host}/files/${event.photo}`,
+      created_at: event.created_at,
+      updated_at: event.updated_at,
+      likes: {
+        total: event.likes
+          .filter(like => like.is_like)
+          .reduce(acc => acc + 1, 0),
+        users: event.likes
+          .filter(like => like.is_like)
+          .map(like => like.user_id),
+      },
+      dislikes: {
+        total: event.likes
+          .filter(like => !like.is_like)
+          .reduce(acc => acc + 1, 0),
+        users: event.likes
+          .filter(like => !like.is_like)
+          .map(like => like.user_id),
+      },
+    }));
+
+    return res.status(200).json(serializedEvents);
   }
 
   public async show(req: Request, res: Response): Promise<Response> {
     const { id } = req.params;
 
     const eventRepository = getRepository(Event);
-    const event = await eventRepository.findOne(id);
+    const event = await eventRepository.findOne(id, {
+      relations: ['organizer', 'likes'],
+    });
 
     if (!event) throw new AppError('Event not found', 404);
 
-    return res.status(200).json(event);
+    const serializedEvents = {
+      id: event.id,
+      organizer_id: event.organizer_id,
+      organizer_name: event.organizer.name,
+      organizer_avatar: `${req.protocol}://${req.headers.host}/files/${event.organizer.avatar}`,
+      title: event.title,
+      description: event.description,
+      location: event.location,
+      photo: `${req.protocol}://${req.headers.host}/files/${event.photo}`,
+      created_at: event.created_at,
+      updated_at: event.updated_at,
+      likes: {
+        total: event.likes
+          .filter(like => like.is_like)
+          .reduce(acc => acc + 1, 0),
+        users: event.likes
+          .filter(like => like.is_like)
+          .map(like => like.user_id),
+      },
+      dislikes: {
+        total: event.likes
+          .filter(like => !like.is_like)
+          .reduce(acc => acc + 1, 0),
+        users: event.likes
+          .filter(like => !like.is_like)
+          .map(like => like.user_id),
+      },
+    };
+
+    return res.status(200).json(serializedEvents);
   }
 
   public async store(req: Request, res: Response): Promise<Response> {

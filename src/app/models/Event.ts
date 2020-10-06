@@ -41,7 +41,7 @@ class Event {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @OneToMany(() => LikeEvent, likeEvent => likeEvent.event, { eager: true })
+  @OneToMany(() => LikeEvent, likeEvent => likeEvent.event)
   likes: LikeEvent[];
 }
 

@@ -25,7 +25,9 @@
       {
         "ts": "never"
       }
-    ]
+    ],
+    "array-callback-return": "off",
+    "consistent-return": "off"
   },
   "settings": {
     "import/resolver": {
