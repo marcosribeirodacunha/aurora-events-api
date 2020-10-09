@@ -6,7 +6,8 @@ import LikeEvent from '../models/LikeEvent';
 
 class LikeEventController {
   public async store(req: Request, res: Response): Promise<Response> {
-    const { event_id, is_like } = req.body;
+    const { is_like } = req.body;
+    const { event_id } = req.params;
     const user_id = req.user.id;
 
     const likesRepository = getRepository(LikeEvent);
@@ -45,7 +46,7 @@ class LikeEventController {
 
   public async update(req: Request, res: Response): Promise<Response> {
     const { is_like } = req.body;
-    const event_id = req.params.id;
+    const { event_id } = req.params;
     const user_id = req.user.id;
 
     const likesRepository = getRepository(LikeEvent);
@@ -70,7 +71,7 @@ class LikeEventController {
 
   public async delete(req: Request, res: Response): Promise<Response> {
     const user_id = req.user.id;
-    const event_id = req.params.id;
+    const { event_id } = req.params;
 
     const likesRepository = getRepository(LikeEvent);
     const likeEvent = await likesRepository.findOne({

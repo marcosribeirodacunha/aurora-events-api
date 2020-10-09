@@ -16,8 +16,8 @@ router.use(ensureAuthenticated);
 router.post('/', upload.single('photo'), eventController.store);
 router.delete('/:id', eventController.delete);
 
-router.post('/like', likeEventController.store);
-router.patch('/like/:id', likeEventController.update);
-router.delete('/like/:id', likeEventController.delete);
+router.post('/like/:event_id', likeEventController.store);
+router.patch('/like/:event_id', likeEventController.update);
+router.delete('/like/:event_id', likeEventController.delete);
 
 export default router;

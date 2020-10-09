@@ -17,11 +17,9 @@ class AvatarController {
     if (!user)
       throw new AppError('Only authenticated users can change the avatar', 401);
 
-    if (user.avatar) {
-      const avatarFilePath = path.join(uploadConfig.directory, avatarFilename);
-      const avatarFileExists = await fs.promises.stat(avatarFilePath);
-
-      if (avatarFileExists) await fs.promises.unlink(avatarFilePath);
+    if (user.avatar !== 'default-avatar.png') {
+      const avatarFilePath = path.join(uploadConfig.directory, user.avatar);
+      await fs.promises.unlink(avatarFilePath);
     }
 
     user.avatar = avatarFilename;
