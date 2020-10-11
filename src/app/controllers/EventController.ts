@@ -20,33 +20,31 @@ class EventController {
     const eventRepository = getRepository(Event);
     const events = await eventRepository.find(options);
 
-    const serializedEvents = events.map(event => ({
-      id: event.id,
-      organizer_id: event.organizer_id,
-      organizer_name: event.organizer.name,
-      title: event.title,
-      description: event.description,
-      location: event.location,
-      photo: `${req.protocol}://${req.headers.host}/files/${event.photo}`,
-      created_at: event.created_at,
-      updated_at: event.updated_at,
-      likes: {
-        total: event.likes
-          .filter(like => like.is_like)
-          .reduce(acc => acc + 1, 0),
-        users: event.likes
-          .filter(like => like.is_like)
-          .map(like => like.user_id),
-      },
-      dislikes: {
-        total: event.likes
-          .filter(like => !like.is_like)
-          .reduce(acc => acc + 1, 0),
-        users: event.likes
-          .filter(like => !like.is_like)
-          .map(like => like.user_id),
-      },
-    }));
+    const serializedEvents = events.map(event => {
+      const serialized = {
+        ...event,
+        organizer_name: event.organizer?.name,
+        photo: `${req.protocol}://${req.headers.host}/files/${event.photo}`,
+        likes: {
+          total: event.likes
+            .filter(like => like.is_like)
+            .reduce(acc => acc + 1, 0),
+          users: event.likes
+            .filter(like => like.is_like)
+            .map(like => like.user_id),
+        },
+        dislikes: {
+          total: event.likes
+            .filter(like => !like.is_like)
+            .reduce(acc => acc + 1, 0),
+          users: event.likes
+            .filter(like => !like.is_like)
+            .map(like => like.user_id),
+        },
+      };
+      delete serialized.organizer;
+      return serialized;
+    });
 
     return res.status(200).json(serializedEvents);
   }
@@ -62,16 +60,12 @@ class EventController {
     if (!event) throw new AppError('Event not found', 404);
 
     const serializedEvents = {
-      id: event.id,
-      organizer_id: event.organizer_id,
-      organizer_name: event.organizer.name,
-      organizer_avatar: `${req.protocol}://${req.headers.host}/files/${event.organizer.avatar}`,
-      title: event.title,
-      description: event.description,
-      location: event.location,
+      ...event,
+      organizer_name: event.organizer?.name,
+      organizer_avatar: `${req.protocol}://${req.headers.host}/files/${
+        event.organizer?.avatar || 'default-avatar.png'
+      }`,
       photo: `${req.protocol}://${req.headers.host}/files/${event.photo}`,
-      created_at: event.created_at,
-      updated_at: event.updated_at,
       likes: {
         total: event.likes
           .filter(like => like.is_like)
@@ -90,6 +84,7 @@ class EventController {
       },
     };
 
+    delete serializedEvents.organizer;
     return res.status(200).json(serializedEvents);
   }
 

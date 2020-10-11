@@ -334,13 +334,13 @@
       "parentId": "fld_29d90d242628475381926c932dd686d2",
       "modified": 1601072621939,
       "created": 1601052952488,
-      "url": "{{ baseURL }}/{{ resource }}/like",
+      "url": "{{ baseURL }}/{{ resource }}/like/:event_id",
       "name": "Store",
       "description": "",
       "method": "POST",
       "body": {
         "mimeType": "application/json",
-        "text": "{\n\t\"event_id\": \"EVENT-ID\",\n\t\"is_like\": true\n}"
+        "text": "{\n\t\"is_like\": true\n}"
       },
       "parameters": [],
       "headers": [
