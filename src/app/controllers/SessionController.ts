@@ -11,7 +11,12 @@ class SessionController {
     const { email, password } = req.body;
 
     const userRepository = getRepository(User);
-    const user = await userRepository.findOne({ where: { email } });
+    const user = await userRepository
+      .createQueryBuilder('users')
+      .select('users')
+      .addSelect('users.password')
+      .where('users.email = :email', { email })
+      .getOne();
 
     if (!user) throw new AppError('Invalid email/password', 401);
 

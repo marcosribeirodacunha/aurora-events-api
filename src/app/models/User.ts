@@ -6,6 +6,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import Event from './Event';
 import LikeEvent from './LikeEvent';
 
 @Entity('users')
@@ -19,7 +20,7 @@ class User {
   @Column({ unique: true })
   email: string;
 
-  @Column()
+  @Column({ select: false })
   password: string;
 
   @Column({ nullable: true })
@@ -30,6 +31,9 @@ class User {
 
   @UpdateDateColumn()
   updated_at: Date;
+
+  @OneToMany(() => Event, event => event.organizer)
+  events: Event[];
 
   @OneToMany(() => LikeEvent, likeEvent => likeEvent.user)
   likes: LikeEvent[];
