@@ -1,7 +1,7 @@
 {
   "_type": "export",
   "__export_format": 4,
-  "__export_date": "2020-09-25T22:25:34.806Z",
+  "__export_date": "2020-10-20T21:18:44.078Z",
   "__export_source": "insomnia.desktop.app:v2020.4.1",
   "resources": [
     {
@@ -52,7 +52,7 @@
     {
       "_id": "req_bd84d4984a2d437fad152f1471c3a6ea",
       "parentId": "fld_9396d11462b744edb1ec679d11c18d5c",
-      "modified": 1601072669677,
+      "modified": 1602443265898,
       "created": 1600972471787,
       "url": "{{ baseURL }}/{{ resource }}/{% response 'body', 'req_d1817338dbde4dab8944d0c279145c7f', 'b64::JFswXS5pZA==::46b', 'no-history', 60 %}",
       "name": "Show",
@@ -75,7 +75,7 @@
     {
       "_id": "req_749d4193dcc244c8a718f9dee62ea307",
       "parentId": "fld_9396d11462b744edb1ec679d11c18d5c",
-      "modified": 1601072672066,
+      "modified": 1601685580791,
       "created": 1600971561006,
       "url": "{{ baseURL }}/{{ resource }}",
       "name": "Store",
@@ -107,7 +107,7 @@
     {
       "_id": "req_2307718d697b4e3cac01b6a0ae994f6d",
       "parentId": "fld_9396d11462b744edb1ec679d11c18d5c",
-      "modified": 1601072675447,
+      "modified": 1602368485089,
       "created": 1600972477904,
       "url": "{{ baseURL }}/{{ resource }}/:user_id",
       "name": "Delete",
@@ -130,7 +130,7 @@
     {
       "_id": "req_27e2968814534cfbad0c03a005e6e3c5",
       "parentId": "fld_d1df2e2aa0564fc18acf70f3407ebe6d",
-      "modified": 1601072677990,
+      "modified": 1602277578473,
       "created": 1600992151041,
       "url": "{{ baseURL }}/{{ resource }}/avatar",
       "name": "Update",
@@ -143,7 +143,7 @@
             "name": "avatar",
             "value": "",
             "description": "",
-            "id": "pair_2a3eae2cf72940a1b4d57835178f9461",
+            "id": "pair_1cf0fda082394b1ea345d364966537bc",
             "type": "file",
             "fileName": ""
           }
@@ -157,7 +157,11 @@
           "id": "pair_08030bff3b75439082e0de0353ea4da9"
         }
       ],
-      "authentication": { "type": "bearer", "token": "{{ token }}" },
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ token }}",
+        "disabled": false
+      },
       "metaSortKey": -1600971560906,
       "isPrivate": false,
       "settingStoreCookies": true,
@@ -181,9 +185,74 @@
       "_type": "request_group"
     },
     {
+      "_id": "req_bc7b11d2e6164538bfebc1dc7702534b",
+      "parentId": "fld_46876761f85140ddb1356f14ac6c3112",
+      "modified": 1603227540189,
+      "created": 1603227406542,
+      "url": "{{ baseURL }}/{{ resource }}/photo/:event_id",
+      "name": "Update",
+      "description": "",
+      "method": "PATCH",
+      "body": {
+        "mimeType": "multipart/form-data",
+        "params": [
+          {
+            "name": "photo",
+            "value": "",
+            "description": "",
+            "id": "pair_f62b79c4353d498f86c13b3210b72416",
+            "type": "file",
+            "fileName": ""
+          }
+        ]
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "multipart/form-data",
+          "id": "pair_20866e8bb9124f2a8ff6db3d3f877fa2"
+        }
+      ],
+      "authentication": { "type": "bearer", "token": "{{ token }}" },
+      "metaSortKey": -1603227406542,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_46876761f85140ddb1356f14ac6c3112",
+      "parentId": "fld_9abc9dfdf7fd4efbaa96fabf6d38bf6f",
+      "modified": 1603227390819,
+      "created": 1603227390819,
+      "name": "Photo",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1603227390819,
+      "_type": "request_group"
+    },
+    {
+      "_id": "fld_9abc9dfdf7fd4efbaa96fabf6d38bf6f",
+      "parentId": "wrk_5f20ea2473ba48d3aeb03ce743c7a499",
+      "modified": 1601072564490,
+      "created": 1600976115498,
+      "name": "Events",
+      "description": "",
+      "environment": { "resource": "events" },
+      "environmentPropertyOrder": { "&": ["resource"] },
+      "metaSortKey": -1599123831621.5,
+      "_type": "request_group"
+    },
+    {
       "_id": "req_4d74de95164f443d820ba0610d604d47",
       "parentId": "fld_9abc9dfdf7fd4efbaa96fabf6d38bf6f",
-      "modified": 1601072614687,
+      "modified": 1601935045081,
       "created": 1600976115511,
       "url": "{{ baseURL }}/{{ resource }}",
       "name": "Index",
@@ -202,18 +271,6 @@
       "settingRebuildPath": true,
       "settingFollowRedirects": "global",
       "_type": "request"
-    },
-    {
-      "_id": "fld_9abc9dfdf7fd4efbaa96fabf6d38bf6f",
-      "parentId": "wrk_5f20ea2473ba48d3aeb03ce743c7a499",
-      "modified": 1601072564490,
-      "created": 1600976115498,
-      "name": "Events",
-      "description": "",
-      "environment": { "resource": "events" },
-      "environmentPropertyOrder": { "&": ["resource"] },
-      "metaSortKey": -1599123831621.5,
-      "_type": "request_group"
     },
     {
       "_id": "req_f97195e681df4030b8e3ce1b241fc7de",
@@ -241,7 +298,7 @@
     {
       "_id": "req_8c4a37bdb25e4b8aa02a9c9695a43167",
       "parentId": "fld_9abc9dfdf7fd4efbaa96fabf6d38bf6f",
-      "modified": 1601072579348,
+      "modified": 1602033452860,
       "created": 1600976115506,
       "url": "{{ baseURL }}/{{ resource }}",
       "name": "Store",
@@ -305,7 +362,7 @@
     {
       "_id": "req_2c789d1c637d4899a36a91493b817498",
       "parentId": "fld_9abc9dfdf7fd4efbaa96fabf6d38bf6f",
-      "modified": 1601072593766,
+      "modified": 1602032953559,
       "created": 1600976115516,
       "url": "{{ baseURL }}/{{ resource }}/{% response 'body', 'req_8c4a37bdb25e4b8aa02a9c9695a43167', 'b64::JC5pZA==::46b', 'always', 60 %}",
       "name": "Delete",
@@ -316,7 +373,7 @@
       "headers": [],
       "authentication": {
         "type": "bearer",
-        "token": "{% response 'body', 'req_98d6ceb38ded46fd8f1c116049b8eeb8', 'b64::JC50b2tlbg==::46b', 'when-expired', 33200 %}",
+        "token": "{{ token }}",
         "disabled": false
       },
       "metaSortKey": -1600971560956,
@@ -330,9 +387,41 @@
       "_type": "request"
     },
     {
+      "_id": "req_68e5a7c2ff09427dae7f7b4127e01309",
+      "parentId": "fld_9abc9dfdf7fd4efbaa96fabf6d38bf6f",
+      "modified": 1603220044828,
+      "created": 1603219780956,
+      "url": "{{ baseURL }}/{{ resource }}/:event_id",
+      "name": "Update",
+      "description": "",
+      "method": "PATCH",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"title\": \"New title\",\n\t\"description\": \"New description\",\n\t\"location\": \"New location\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_be656a8dfe5c4d3faee370974bf69507"
+        }
+      ],
+      "authentication": { "type": "bearer", "token": "{{ token }}" },
+      "metaSortKey": -1600971560943.5,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
       "_id": "req_c0a17fc4f816430c84ca1470f5edc7c1",
       "parentId": "fld_29d90d242628475381926c932dd686d2",
-      "modified": 1601072621939,
+      "modified": 1602427905390,
       "created": 1601052952488,
       "url": "{{ baseURL }}/{{ resource }}/like/:event_id",
       "name": "Store",
@@ -416,7 +505,7 @@
     {
       "_id": "req_4f0439ca9eeb48de9d5530bd7cc82f20",
       "parentId": "fld_29d90d242628475381926c932dd686d2",
-      "modified": 1601072627810,
+      "modified": 1602427916691,
       "created": 1601055894763,
       "url": "{{ baseURL }}/{{ resource }}/like/:event_id",
       "name": "Delete",
@@ -443,7 +532,7 @@
     {
       "_id": "req_98d6ceb38ded46fd8f1c116049b8eeb8",
       "parentId": "fld_d8897a4b242b413fac64283c61ead47f",
-      "modified": 1601072703278,
+      "modified": 1602427573010,
       "created": 1600979227144,
       "url": "{{ baseURL }}/{{ resource }}",
       "name": "Sign In",
@@ -475,22 +564,25 @@
     {
       "_id": "fld_d8897a4b242b413fac64283c61ead47f",
       "parentId": "wrk_5f20ea2473ba48d3aeb03ce743c7a499",
-      "modified": 1601072697056,
+      "modified": 1603227382551,
       "created": 1600979183612,
       "name": "Sessions",
       "description": "",
       "environment": { "resource": "sessions" },
       "environmentPropertyOrder": { "&": ["resource"] },
-      "metaSortKey": -1599123831571.5,
+      "metaSortKey": -1599123831596.5,
       "_type": "request_group"
     },
     {
       "_id": "env_45eae8766e6885ec00bdcf8e2ba445b21b5e5177",
       "parentId": "wrk_5f20ea2473ba48d3aeb03ce743c7a499",
-      "modified": 1601069392661,
+      "modified": 1603219980704,
       "created": 1600971480879,
       "name": "Base Environment",
-      "data": { "baseURL": "http://localhost:3333", "token": "" },
+      "data": {
+        "baseURL": "http://localhost:3333",
+        "token": ""
+      },
       "dataPropertyOrder": { "&": ["baseURL", "token"] },
       "color": null,
       "isPrivate": false,

@@ -22,11 +22,12 @@
 
 ## Recursos
 
-- Cadastro, listagem e deleção de usuários
-- Atualização de avatar do usuário
-- Criação de sessão com JWT
-- Criação, listagem e deleção de eventos
-- Like e Dislike em eventos
+- [x] Cadastro, listagem e deleção de usuários
+- [x] Atualização de avatar do usuário
+- [x] Criação de sessão com JWT
+- [x] Criação, listagem e deleção de eventos
+- [x] Atualização de dados e foto dos eventos
+- [x] Like e Dislike em eventos
 
 ## Instalação
 
