@@ -15,7 +15,7 @@ class UserController {
 
     const serializedUsers = users.map(user => ({
       ...user,
-      avatar: `${req.protocol}://${req.headers.host}/files/${user.avatar}`,
+      avatar: `${process.env.APP_URL}/files/${user.avatar}`,
     }));
 
     return res.status(200).json(serializedUsers);
@@ -60,7 +60,7 @@ class UserController {
 
     if (!user) throw new AppError('User not found', 404);
 
-    user.user_avatar = `${req.protocol}://${req.headers.host}/files/${user.user_avatar}`;
+    user.user_avatar = `${process.env.APP_URL}/files/${user.user_avatar}`;
     return res.status(200).json({ ...user, ...events });
   }
 

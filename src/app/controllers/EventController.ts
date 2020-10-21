@@ -24,19 +24,15 @@ class EventController {
       const serialized = {
         ...event,
         organizer_name: event.organizer?.name,
-        photo: `${req.protocol}://${req.headers.host}/files/${event.photo}`,
+        photo: `${process.env.APP_URL}/files/${event.photo}`,
         likes: {
-          total: event.likes
-            .filter(like => like.is_like)
-            .reduce(acc => acc + 1, 0),
+          total: event.likes.filter(like => like.is_like).length,
           users: event.likes
             .filter(like => like.is_like)
             .map(like => like.user_id),
         },
         dislikes: {
-          total: event.likes
-            .filter(like => !like.is_like)
-            .reduce(acc => acc + 1, 0),
+          total: event.likes.filter(like => !like.is_like).length,
           users: event.likes
             .filter(like => !like.is_like)
             .map(like => like.user_id),
@@ -62,22 +58,18 @@ class EventController {
     const serializedEvents = {
       ...event,
       organizer_name: event.organizer?.name,
-      organizer_avatar: `${req.protocol}://${req.headers.host}/files/${
+      organizer_avatar: `${process.env.APP_URL}/files/${
         event.organizer?.avatar || 'default-avatar.png'
       }`,
-      photo: `${req.protocol}://${req.headers.host}/files/${event.photo}`,
+      photo: `${process.env.APP_URL}/files/${event.photo}`,
       likes: {
-        total: event.likes
-          .filter(like => like.is_like)
-          .reduce(acc => acc + 1, 0),
+        total: event.likes.filter(like => like.is_like).length,
         users: event.likes
           .filter(like => like.is_like)
           .map(like => like.user_id),
       },
       dislikes: {
-        total: event.likes
-          .filter(like => !like.is_like)
-          .reduce(acc => acc + 1, 0),
+        total: event.likes.filter(like => !like.is_like).length,
         users: event.likes
           .filter(like => !like.is_like)
           .map(like => like.user_id),

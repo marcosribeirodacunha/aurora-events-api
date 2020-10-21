@@ -1,4 +1,12 @@
 node_modules
+
+# Uploaded files folder
 tmp/*
 !tmp/.gitkeep
 !tmp/default-avatar.png
+
+# Enviromnent variables
+.env
+
+# Build folder
+dist/

@@ -51,10 +51,9 @@ Esta aplicação utiliza como banco de dados o [Postgres](https://www.postgresql
 
 Antes de realizar as migrations realize os seguintes passos:
 
-- Crie um banco de dados com o nome `aurora_events`;
-- Verifique se o `username` e `password` utilizados em seu banco banco de dados condizem com aqueles contidos no arquivo `ormconfig.json`. Caso estejam diferentes, no aquivo `ormconfig.json`:
-  - Troque o campo `username` para o mesmo utilizado em seu BD;
-  - Troque o campo `password` para o mesmo utilizado em seu BD;
+- Renomeie o arquivo `.env.example` para `.env`
+- Altere as variáveis faltantes de acordo com os dados do banco de dados postgreSQL no qual utilizará
+- Crie um banco de dados com o mesmo nome daquele contido na variável `TYPEORM_DATABASE` do arquivo `.env`;
 - Verifique se o banco de dados criado possui a extensão `uuid-ossp` habilitada. Caso não possua, habilite esta extensão.
 
 Após verificar os passos anteriores execute os seguintes comandos:
